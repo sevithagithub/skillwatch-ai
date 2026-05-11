@@ -1,0 +1,46 @@
+skill,resource_type,title,platform,url,rating,cost_type,duration_hrs,level
+Python,course,Python for Everybody Specialization,Coursera,https://coursera.org/specializations/python,4.8,free_audit,40,Beginner
+Python,course,100 Days of Code: Python Bootcamp,Udemy,https://udemy.com/course/100-days-of-code,4.7,paid,60,Beginner
+Python,course,Python Tutorial for Beginners,freeCodeCamp,https://youtube.com/@freecodecamp,4.6,free,4,Beginner
+Python,book,Automate the Boring Stuff with Python,Al Sweigart,https://automatetheboringstuff.com,4.7,free,0,Beginner
+Python,book,Fluent Python 2nd Ed,O'Reilly,https://oreilly.com,4.9,paid,0,Advanced
+Python,practice,LeetCode Python Problems,LeetCode,https://leetcode.com,4.8,freemium,0,All
+Python,practice,HackerRank Python,HackerRank,https://hackerrank.com/domains/python,4.5,free,0,Beginner
+Python,practice,Kaggle Python Course,Kaggle,https://kaggle.com/learn/python,4.7,free,5,Beginner
+Machine Learning,course,Machine Learning Specialization,Coursera,https://coursera.org/specializations/machine-learning-introduction,4.9,free_audit,72,Beginner
+Machine Learning,course,Fast.ai Practical Deep Learning,fast.ai,https://fast.ai,4.8,free,40,Intermediate
+Machine Learning,course,ML with Python,freeCodeCamp,https://freecodecamp.org,4.5,free,10,Beginner
+Machine Learning,book,Hands-On Machine Learning 3rd Ed,O'Reilly,https://oreilly.com,4.9,paid,0,Intermediate
+Machine Learning,book,Pattern Recognition and ML,Bishop,https://microsoft.com/en-us/research/publication/pattern-recognition-machine-learning,4.8,free,0,Advanced
+Machine Learning,practice,Kaggle Competitions,Kaggle,https://kaggle.com/competitions,4.9,free,0,All
+Machine Learning,practice,Google Colab,Google,https://colab.research.google.com,4.8,free,0,All
+SQL,course,SQL for Data Science,Coursera,https://coursera.org/learn/sql-for-data-science,4.6,free_audit,16,Beginner
+SQL,course,The Complete SQL Bootcamp,Udemy,https://udemy.com/course/the-complete-sql-bootcamp,4.7,paid,9,Beginner
+SQL,course,SQLZoo Interactive,SQLZoo,https://sqlzoo.net,4.4,free,0,Beginner
+SQL,book,Learning SQL 3rd Ed,O'Reilly,https://oreilly.com,4.5,paid,0,Beginner
+SQL,practice,LeetCode SQL,LeetCode,https://leetcode.com,4.8,freemium,0,All
+SQL,practice,Mode SQL Tutorial,Mode Analytics,https://mode.com/sql-tutorial,4.5,free,0,Beginner
+Cloud Computing,course,AWS Cloud Practitioner Essentials,AWS Training,https://aws.amazon.com/training,4.7,free,6,Beginner
+Cloud Computing,course,AZ-900 Azure Fundamentals,Microsoft Learn,https://learn.microsoft.com,4.8,free,10,Beginner
+Cloud Computing,course,Google Cloud Digital Leader,Coursera,https://coursera.org,4.6,free_audit,8,Beginner
+Cloud Computing,book,AWS Certified Solutions Architect Guide,Sybex,https://sybex.com,4.6,paid,0,Intermediate
+Cloud Computing,practice,AWS Free Tier,AWS,https://aws.amazon.com/free,4.9,free,0,All
+Cloud Computing,practice,Google Cloud Skills Boost,Google,https://cloudskillsboost.google,4.7,free,0,All
+Power BI,course,Microsoft Power BI Data Analyst PL-300,Microsoft Learn,https://learn.microsoft.com/en-us/certifications/power-bi-data-analyst-associate,4.7,free,20,Beginner
+Power BI,course,Power BI A-Z: Hands-On,Udemy,https://udemy.com,4.5,paid,10,Beginner
+Power BI,practice,Power BI Community Samples,Microsoft,https://community.powerbi.com,4.5,free,0,All
+Data Analysis,course,Google Data Analytics Certificate,Coursera,https://coursera.org/professional-certificates/google-data-analytics,4.8,paid,180,Beginner
+Data Analysis,course,Data Analysis with Python,freeCodeCamp,https://freecodecamp.org/learn/data-analysis-with-python,4.5,free,0,Beginner
+Data Analysis,practice,Kaggle Learn Pandas,Kaggle,https://kaggle.com/learn/pandas,4.7,free,4,Beginner
+DevOps,course,DevOps Beginners to Advanced,Udemy,https://udemy.com,4.7,paid,40,Beginner
+DevOps,course,The DevOps Bootcamp,Udemy,https://udemy.com,4.6,paid,21,Beginner
+DevOps,practice,Play with Docker,Docker,https://labs.play-with-docker.com,4.6,free,0,All
+Selenium,course,Selenium WebDriver with Java,Udemy,https://udemy.com,4.6,paid,30,Beginner
+Selenium,course,Selenium Python Tutorial,freeCodeCamp,https://freecodecamp.org,4.4,free,5,Beginner
+Kubernetes,course,Kubernetes for Absolute Beginners,KodeKloud,https://kodekloud.com,4.8,paid,6,Beginner
+Kubernetes,course,Certified Kubernetes Administrator,LinuxFoundation,https://training.linuxfoundation.org,4.7,paid,100,Advanced
+Generative AI,course,Generative AI for Everyone,Coursera,https://coursera.org/learn/generative-ai-for-everyone,4.8,free_audit,6,Beginner
+Generative AI,course,Prompt Engineering for Developers,DeepLearning.AI,https://deeplearning.ai,4.9,free,4,Intermediate
+MLOps,course,MLOps Specialization,Coursera,https://coursera.org/specializations/machine-learning-engineering-for-production-mlops,4.7,free_audit,40,Intermediate
+Data Engineering,course,Data Engineering Zoomcamp,DataTalks.Club,https://github.com/DataTalksClub/data-engineering-zoomcamp,4.8,free,80,Intermediate
+Data Engineering,course,Apache Spark with Scala,Udemy,https://udemy.com,4.6,paid,15,Intermediate

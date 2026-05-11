@@ -1,0 +1,46 @@
+skill,related_skill,relationship_type,strength
+Python,Machine Learning,enables,0.9
+Python,Data Analysis,enables,0.85
+Python,Cloud Computing,complements,0.6
+Python,FastAPI,enables,0.8
+Python,SQL,complements,0.7
+Python,DevOps,complements,0.5
+Machine Learning,Deep Learning,progression,0.95
+Machine Learning,Data Analysis,requires,0.8
+Machine Learning,Cloud Computing,complements,0.6
+Machine Learning,MLOps,progression,0.85
+Machine Learning,Data Engineering,complements,0.7
+SQL,Data Analysis,enables,0.85
+SQL,Power BI,enables,0.75
+SQL,Excel,related,0.5
+SQL,Data Engineering,enables,0.8
+Excel,Power BI,progression,0.7
+Excel,Data Entry,related,0.4
+Excel,Data Analysis,enables,0.5
+Cloud Computing,DevOps,progression,0.85
+Cloud Computing,Kubernetes,enables,0.9
+Cloud Computing,MLOps,complements,0.7
+DevOps,Kubernetes,progression,0.85
+DevOps,Machine Learning,complements,0.4
+Manual Testing,Selenium,progression,0.8
+Manual Testing,Python,transition,0.6
+Manual Testing,DevOps,transition,0.5
+Data Entry,Excel,related,0.4
+Data Entry,Data Analysis,transition,0.6
+Data Entry,Power BI,transition,0.5
+Photoshop,Figma,transition,0.7
+Photoshop,Data Analysis,transition,0.3
+Power BI,Data Analysis,related,0.75
+Selenium,Python,requires,0.7
+Selenium,DevOps,complements,0.5
+Kubernetes,Cloud Computing,requires,0.9
+Generative AI,Machine Learning,requires,0.8
+Generative AI,LLM Fine-tuning,enables,0.9
+Generative AI,Python,requires,0.7
+LLM Fine-tuning,Machine Learning,requires,0.85
+LLM Fine-tuning,MLOps,complements,0.7
+MLOps,Cloud Computing,requires,0.8
+MLOps,DevOps,requires,0.75
+Data Engineering,Cloud Computing,requires,0.7
+Data Engineering,SQL,requires,0.85
+Data Engineering,Python,requires,0.8

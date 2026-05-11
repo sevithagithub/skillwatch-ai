@@ -1,0 +1,21 @@
+region,country,workforce_size,high_risk_pct,medium_risk_pct,primary_at_risk_skills,dominant_sector
+Bengaluru,India,2950000,41.0,27.0,"Manual Testing,Data Entry,Excel,Basic Java",IT Services
+Hyderabad,India,1980000,37.0,30.0,"Manual Testing,Data Entry,Excel",IT Services
+Chennai,India,1640000,40.0,25.0,"Manual Testing,Data Entry,BPO Skills",IT/BPO
+Pune,India,1420000,34.0,29.0,"Manual Testing,Excel,Basic Java",IT Services
+Delhi NCR,India,2280000,31.0,28.0,"Data Entry,Excel,Basic Accounting",Mixed
+Mumbai,India,1860000,27.0,31.0,"Data Entry,Excel,Manual Back-office",Finance/IT
+Detroit,USA,640000,54.0,23.0,"Manual Assembly,Data Entry,Basic QA",Manufacturing
+Midwest Region,USA,860000,50.0,25.0,"Data Entry,Excel,Manual Processing",Agriculture/Mfg
+Southeast England,UK,760000,32.0,26.0,"Excel,Manual Testing,Data Entry",Finance/IT
+Manila,Philippines,1130000,57.0,21.0,"Data Entry,BPO,Manual Processing",BPO/IT
+Jakarta,Indonesia,940000,51.0,27.0,"Data Entry,Excel,Manual Processing",Mixed
+Shenzhen,China,1540000,46.0,24.0,"Manual Assembly,Data Entry,Basic QA",Manufacturing
+Austin,USA,390000,17.0,21.0,"Selenium,Manual Testing,Legacy COBOL",Tech
+San Francisco Bay Area,USA,430000,13.0,18.0,"Legacy Systems,Selenium,Manual Testing",Tech
+London,UK,910000,21.0,27.0,"Excel,Manual Testing,Legacy Systems",Finance/Tech
+Berlin,Germany,570000,19.0,24.0,"Manual Testing,Excel,Legacy Systems",Tech/Mfg
+Toronto,Canada,650000,23.0,25.0,"Manual Testing,Excel,Data Entry",Mixed
+Singapore,Singapore,290000,20.0,23.0,"Manual Testing,Excel,Data Entry",Finance/Tech
+Sydney,Australia,430000,25.0,26.0,"Data Entry,Excel,Manual Testing",Mixed
+Cape Town,South Africa,350000,48.0,29.0,"Data Entry,Excel,Manual Processing",BPO/Mixed

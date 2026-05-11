@@ -1,0 +1,21 @@
+SOC,Occupation,Probability
+43-9021,Data Entry Keyers,0.99
+41-9041,Telemarketers,0.99
+13-2011,Accountants and Auditors,0.94
+15-1132,Software Developers Applications,0.042
+29-1060,Physicians and Surgeons,0.0042
+23-1011,Lawyers,0.035
+13-1111,Management Analysts,0.13
+27-1024,Graphic Designers,0.082
+15-1141,Database Administrators,0.03
+15-1121,Computer Systems Analysts,0.0065
+15-1134,Web Developers,0.21
+15-1151,Computer User Support Specialists,0.65
+11-3021,Computer and Information Systems Managers,0.035
+15-1111,Computer and Information Research Scientists,0.015
+15-1142,Network and Computer Systems Administrators,0.03
+17-2061,Computer Hardware Engineers,0.03
+15-1131,Computer Programmers,0.48
+43-6011,Executive Secretaries and Executive Administrative Assistants,0.86
+43-6014,Secretaries and Administrative Assistants,0.96
+43-3031,Bookkeeping Accounting and Auditing Clerks,0.98

@@ -1,0 +1,21 @@
+SOC,Occupation,Skill,Importance
+15-1132,Software Developers,Programming,85
+15-1132,Software Developers,Systems Analysis,72
+15-1132,Software Developers,Complex Problem Solving,78
+15-1132,Software Developers,Critical Thinking,75
+15-1132,Software Developers,Mathematics,62
+15-1121,Computer Systems Analysts,Systems Analysis,88
+15-1121,Computer Systems Analysts,Systems Evaluation,78
+15-1121,Computer Systems Analysts,Critical Thinking,81
+15-1141,Database Administrators,Programming,60
+15-1141,Database Administrators,Systems Analysis,65
+15-1141,Database Administrators,Reading Comprehension,70
+13-2011,Accountants and Auditors,Mathematics,75
+13-2011,Accountants and Auditors,Critical Thinking,72
+13-2011,Accountants and Auditors,Reading Comprehension,78
+43-9021,Data Entry Keyers,Reading Comprehension,65
+43-9021,Data Entry Keyers,Active Listening,50
+43-9021,Data Entry Keyers,Critical Thinking,40
+15-2041,Data Scientists,Mathematics,85
+15-2041,Data Scientists,Programming,82
+15-2041,Data Scientists,Complex Problem Solving,80
