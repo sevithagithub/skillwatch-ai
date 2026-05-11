@@ -226,9 +226,16 @@ def _load_models():
         with open(model_path, "rb") as f:
             bundle = pickle.load(f)
         _scaler = bundle["scaler"]
-        _risk_classifier = bundle["classifier"]
-        _sdi_model = bundle["regressor"]
-        return _scaler, _risk_classifier, _sdi_model
+        # Compatibility check: Ensure the loaded scaler matches our 10-feature vector
+        if hasattr(_scaler, "n_features_in_") and _scaler.n_features_in_ != 10:
+            print(f"  [WARN] Model mismatch (expected 10 features, found {_scaler.n_features_in_}). Re-training...")
+            _scaler = None
+            _risk_classifier = None
+            _sdi_model = None
+        else:
+            _risk_classifier = bundle["classifier"]
+            _sdi_model = bundle["regressor"]
+            return _scaler, _risk_classifier, _sdi_model
 
     # Models not yet trained — train now
     print("  [INFO] Training SDI models from real data...")
