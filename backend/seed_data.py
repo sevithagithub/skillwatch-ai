@@ -83,6 +83,7 @@ def seed_skills_demand(db):
         skill_df = df[df["skill"] == skill_name].sort_values("year")
 
         sdi_result = compute_full_sdi(
+            skill_name=skill_name,
             job_postings=skill_df["job_postings"].tolist(),
             automation_risks=skill_df["automation_risk"].tolist(),
             course_counts=skill_df["course_count"].tolist(),
