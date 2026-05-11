@@ -87,11 +87,15 @@ def _build_features(job_postings, automation_risks, course_counts, salaries,
     importance = (onet_importance / 100.0) if onet_importance is not None else 0.5
     base_prob = base_automation_prob if base_automation_prob is not None else avg_automation
 
-    return np.array([
+    feats = np.array([
         demand_cagr, demand_decline, avg_automation, auto_trend,
         min(1.0, oversupply), salary_stagnation, recent_trend, salary_level,
         importance, base_prob
     ])
+    
+    # NaN Protection
+    feats = np.nan_to_num(feats, nan=0.0, posinf=1.0, neginf=-1.0)
+    return feats
 
 
 def _load_training_data():
