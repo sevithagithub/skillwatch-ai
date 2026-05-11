@@ -16,7 +16,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy backend code
 COPY backend/ ./backend/
 COPY datasets/ ./datasets/
-COPY models/ ./models/
+# Create models dir (in case it was deleted from git)
+RUN mkdir -p models
 
 # Expose port
 EXPOSE 8000
