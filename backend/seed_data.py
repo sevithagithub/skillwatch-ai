@@ -12,6 +12,7 @@ import sys
 from database.database import engine, SessionLocal, Base
 from database.models import Skill, SkillDemand, Resource, Region
 from ml.sdi import compute_full_sdi, train_models
+import traceback
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATASETS_DIR = os.path.join(BASE_DIR, "..", "datasets")
@@ -199,4 +200,9 @@ def seed_all():
 
 
 if __name__ == "__main__":
-    seed_all()
+    try:
+        seed_all()
+    except Exception as e:
+        print("\n[ERROR] Seeding failed!")
+        print(traceback.format_exc())
+        sys.exit(1)
