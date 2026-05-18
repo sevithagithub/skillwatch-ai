@@ -21,6 +21,7 @@ export default function App() {
   const [skills, setSkills] = useState([]);
   const [selectedSkill, setSelectedSkill] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const menuRef = useRef(null);
 
   // Close dropdown when clicking outside
@@ -158,6 +159,11 @@ export default function App() {
   return (
     <div className="app-shell">
       <div className="top-bar">
+        {/* Hamburger — only visible on mobile */}
+        <button className="hamburger-btn" onClick={() => setSidebarOpen(o => !o)} aria-label="Toggle skill list">
+          {sidebarOpen ? '✕' : '☰'}
+        </button>
+
         <div className="logo">Skill<span>Watch</span> · AI</div>
         <div className="nav-links">
           {navItems.map(n => (
@@ -208,7 +214,12 @@ export default function App() {
         </div>
       </div>
 
-      <div className="sidebar">
+      {/* Overlay — closes sidebar on mobile when tapping outside */}
+      {sidebarOpen && (
+        <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} />
+      )}
+
+      <div className={`sidebar${sidebarOpen ? ' open' : ''}`}>
         {userSkillNames.length > 0 && (
           <>
             <div className="sidebar-label" style={{ color: '#00d4a1' }}>Your Skills</div>
@@ -242,6 +253,26 @@ export default function App() {
       <div className="main-panel">
         {renderPage()}
       </div>
+
+      {/* Mobile Bottom Navigation — shown only on phones */}
+      <nav className="mobile-bottom-nav">
+        {[
+          { id: 'dashboard', icon: '🏠', label: 'Home' },
+          { id: 'resources', icon: '📚', label: 'Learn' },
+          { id: 'matcher',   icon: '💼', label: 'Jobs' },
+          { id: 'graph',     icon: '🔗', label: 'Graph' },
+          { id: 'regions',   icon: '🌍', label: 'Regions' },
+        ].map(n => (
+          <button
+            key={n.id}
+            className={`mobile-nav-item${page === n.id ? ' active' : ''}`}
+            onClick={() => { setPage(n.id); setSidebarOpen(false); }}
+          >
+            <span className="mobile-nav-icon">{n.icon}</span>
+            {n.label}
+          </button>
+        ))}
+      </nav>
     </div>
   );
 }
