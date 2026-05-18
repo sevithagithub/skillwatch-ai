@@ -10,6 +10,15 @@ import JobMatcher from './pages/JobMatcher';
 import AdminPanel from './pages/AdminPanel';
 import { getSkills, getMe } from './services/api';
 
+// Keep Render free-tier backend alive — ping every 14 minutes
+const BACKEND_URL = 'https://skillwatch-ai.onrender.com/api/skills/';
+if (typeof window !== 'undefined') {
+  const ping = () => fetch(BACKEND_URL, { method: 'GET' }).catch(() => {});
+  ping(); // immediate ping on load
+  setInterval(ping, 14 * 60 * 1000); // then every 14 min
+}
+
+
 const RISK_COLORS = {
   Growing: '#00d4a1', Stable: '#60a5fa', 'At Risk': '#f59e0b', Dying: '#f87171',
 };
