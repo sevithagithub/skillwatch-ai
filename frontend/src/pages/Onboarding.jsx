@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { updateProfile } from '../services/api';
 
 const ROLES = ['Software Engineer', 'Data Analyst', 'Designer', 'Tester / QA', 'Admin / Operations', 'Other'];
@@ -26,7 +26,7 @@ export default function Onboarding({ user, onComplete, onLogout }) {
     courses.length > 0
   );
 
-  const handleProceed = async () => {
+  const handleProceed = useCallback(async (attempt = 1) => {
     const prof = { user_type: userType, year, role, time_available: timeAvail, skills, courses };
     setSaving(true);
     setSaveError('');
@@ -34,11 +34,41 @@ export default function Onboarding({ user, onComplete, onLogout }) {
       const res = await updateProfile(prof);
       onComplete(res.data);
     } catch (err) {
-      console.error('Failed to save profile:', err);
-      setSaveError('Could not save your profile — check backend is running and try again.');
+      console.error('Failed to save profile (attempt', attempt, '):', err);
+      const status = err?.response?.status;
+
+      // ── 401: session is stale (DB was wiped on Render restart) ──────────
+      if (status === 401) {
+        setSaveError(
+          'Your session expired because the server restarted. ' +
+          'Please sign in again — your account needs to be re-created.'
+        );
+        setSaving(false);
+        // Give user 3 seconds to read the message, then sign them out
+        setTimeout(() => onLogout(), 3000);
+        return;
+      }
+
+      // ── Network / timeout error: backend cold-starting on Render ────────
+      if (!status && attempt < 3) {
+        const delay = attempt * 8000; // 8s then 16s
+        setSaveError(
+          `Backend is waking up (Render free tier). Retrying in ${delay / 1000}s… (attempt ${attempt}/3)`
+        );
+        setTimeout(() => handleProceed(attempt + 1), delay);
+        return;
+      }
+
+      // ── Generic failure ──────────────────────────────────────────────────
+      setSaveError(
+        status
+          ? `Server error ${status} — please try again or sign out and back in.`
+          : 'Could not reach the backend after 3 attempts. Check your connection and try again.'
+      );
       setSaving(false);
     }
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userType, year, role, timeAvail, skills, courses, onComplete, onLogout]);
 
   return (
     <div className="onboard-page">
@@ -119,8 +149,18 @@ export default function Onboarding({ user, onComplete, onLogout }) {
         )}
 
         {saveError && (
-          <div style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.3)', borderRadius: 8, padding: '10px 14px', fontSize: 12, color: '#f87171', marginBottom: 12 }}>
+          <div style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.3)', borderRadius: 8, padding: '12px 16px', fontSize: 13, color: '#f87171', marginBottom: 12, lineHeight: 1.5 }}>
             ⚠ {saveError}
+            {saveError.includes('waking up') && (
+              <div style={{ marginTop: 6, fontSize: 11, color: '#fbbf24' }}>
+                ⏳ Render free tier spins down after 15 min of inactivity — first request can take up to 30 s.
+              </div>
+            )}
+            {saveError.includes('expired') && (
+              <div style={{ marginTop: 6, fontSize: 11, color: '#94a3b8' }}>
+                Redirecting to login in 3 seconds…
+              </div>
+            )}
           </div>
         )}
         <button className="proceed-btn" disabled={!canProceed} onClick={handleProceed}>

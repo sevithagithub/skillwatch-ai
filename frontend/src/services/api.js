@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: '/api' });
+const API = axios.create({ baseURL: '/api', timeout: 45000 }); // 45s — covers Render free-tier cold start
 
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem('sw_token');

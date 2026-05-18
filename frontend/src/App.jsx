@@ -50,7 +50,8 @@ export default function App() {
     if (token && saved) {
       setUser(JSON.parse(saved));
       if (prof) setProfile(JSON.parse(prof));
-      // Also sync profile from backend in case it changed
+      // Sync profile from backend; if 401 the DB was wiped on Render restart —
+      // clear the stale session so the user sees the login page, not a broken Onboarding.
       getMe().then(r => {
         const u = r.data;
         setUser(u);
@@ -67,7 +68,16 @@ export default function App() {
           setProfile(p);
           localStorage.setItem('sw_profile', JSON.stringify(p));
         }
-      }).catch(() => {});
+      }).catch(err => {
+        // 401 = account no longer exists (DB wiped after Render restart)
+        if (err?.response?.status === 401) {
+          console.warn('[Auth] Stale session detected — clearing localStorage and redirecting to login.');
+          localStorage.clear();
+          setUser(null);
+          setProfile(null);
+        }
+        // Other errors (network/cold-start) are silent — user can still use cached local state
+      });
     }
   }, []);
 
