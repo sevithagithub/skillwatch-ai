@@ -5,6 +5,25 @@ import numpy as np
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATASETS_DIR = os.path.join(BASE_DIR, "..", "datasets")
 
+SKILL_MAPPING = {
+    "excel": ["mathematics", "systems analysis"],
+    "tableu": ["systems analysis", "critical thinking", "systems evaluation"],
+    "tableau": ["systems analysis", "critical thinking", "systems evaluation"],
+    "power bi": ["systems analysis", "critical thinking", "systems evaluation"],
+    "python": ["programming", "systems analysis", "complex problem solving"],
+    "java": ["programming", "systems analysis", "complex problem solving"],
+    "react": ["programming", "systems analysis"],
+    "javascript": ["programming", "systems analysis"],
+    "sql": ["programming", "systems analysis"],
+    "kubernetes": ["programming", "systems analysis", "complex problem solving"],
+    "devops": ["programming", "systems analysis", "complex problem solving"],
+    "mlops": ["programming", "systems analysis", "complex problem solving"],
+    "data engineering": ["programming", "systems analysis", "complex problem solving"],
+    "manual testing": ["reading comprehension", "active listening", "critical thinking"],
+    "data entry": ["reading comprehension", "active listening", "critical thinking"],
+    "bpo skills": ["reading comprehension", "active listening", "critical thinking"],
+}
+
 def get_job_matches(user_skills: list, top_n=5) -> list:
     """
     Match user skills against O*NET occupations.
@@ -19,8 +38,16 @@ def get_job_matches(user_skills: list, top_n=5) -> list:
     onet_df = pd.read_csv(onet_path)
     risk_df = pd.read_csv(risk_path)
 
-    # Normalize user skills to lowercase
-    user_skills = [s.lower() for s in user_skills]
+    # Normalize user skills to lowercase and expand them using SKILL_MAPPING
+    expanded_skills = set()
+    for s in user_skills:
+        s_lower = s.lower().strip()
+        expanded_skills.add(s_lower)
+        if s_lower in SKILL_MAPPING:
+            for mapped in SKILL_MAPPING[s_lower]:
+                expanded_skills.add(mapped)
+                
+    user_skills = list(expanded_skills)
     
     results = []
     

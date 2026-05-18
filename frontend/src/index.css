@@ -12,16 +12,18 @@ body { background: var(--bg-primary); color: var(--text-primary); font-family: v
 ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: #0d1117; } ::-webkit-scrollbar-thumb { background: #334155; border-radius: 2px; }
 
 /* Layout */
-.app-shell { display: grid; grid-template-columns: 220px 1fr; grid-template-rows: 56px 1fr; min-height: 100vh; max-width: 1600px; margin: 0 auto; }
-.top-bar { grid-column: 1 / -1; display: flex; align-items: center; padding: 0 24px; background: rgba(8,11,18,0.97); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; gap: 20px; backdrop-filter: blur(12px); }
-.logo { font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
-.logo span { color: var(--text-muted); }
-.nav-links { display: flex; gap: 2px; flex: 1; }
-.nav-btn { background: none; border: none; color: var(--text-muted); font-family: var(--font-body); font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.15s; }
+.app-shell { display: grid; grid-template-columns: 240px 1fr; grid-template-rows: 64px 1fr; min-height: 100vh; max-width: 100%; margin: 0 auto; transition: all 0.3s ease; }
+.top-bar { grid-column: 1 / -1; display: flex; align-items: center; padding: 0 24px; background: rgba(8,11,18,0.8); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; gap: 20px; backdrop-filter: blur(20px); height: 64px; }
+.logo { font-family: var(--font-mono); font-size: 14px; font-weight: 800; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; display: flex; align-items: center; gap: 8px; }
+.logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; gap: 4px; flex: 1; overflow-x: auto; scrollbar-width: none; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-btn { background: none; border: none; color: var(--text-secondary); font-family: var(--font-body); font-size: 13px; font-weight: 500; padding: 8px 16px; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s; white-space: nowrap; }
 .nav-btn:hover { color: var(--text-primary); background: rgba(255,255,255,0.06); }
-.nav-btn.active { color: var(--accent); background: var(--accent-bg); }
-.user-pill { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 20px; padding: 5px 14px 5px 8px; font-size: 12px; color: var(--text-secondary); cursor: pointer; }
-.user-avatar { width: 24px; height: 24px; border-radius: 50%; background: var(--accent-bg); display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--accent); font-weight: 700; }
+.nav-btn.active { color: var(--accent); background: var(--accent-bg); box-shadow: 0 0 0 1px var(--accent-border); }
+.user-pill { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 24px; padding: 6px 16px 6px 6px; font-size: 13px; color: var(--text-secondary); cursor: pointer; transition: all 0.2s; }
+.user-pill:hover { border-color: var(--border-hover); background: rgba(255,255,255,0.08); }
+.user-avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #00bfa5); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--bg-primary); font-weight: 800; box-shadow: 0 2px 10px rgba(0,212,161,0.2); }
 .sidebar { padding: 20px 12px; border-right: 1px solid rgba(255,255,255,0.04); background: rgba(13,17,23,0.6); overflow-y: auto; }
 .sidebar-label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 10px; padding: 0 8px; }
 .skill-chip { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--radius-sm); margin-bottom: 2px; cursor: pointer; transition: all 0.15s; border: 1px solid transparent; }
@@ -152,13 +154,46 @@ body { background: var(--bg-primary); color: var(--text-primary); font-family: v
 .roadmap-num { width: 26px; height: 26px; border-radius: 50%; background: var(--accent-bg); color: var(--accent); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--font-mono); }
 
 /* Responsive */
-@media (max-width: 900px) {
-  .app-shell { grid-template-columns: 1fr; }
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE DESIGN SYSTEM
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Tablet & Smaller Laptops (1024px and down) */
+@media (max-width: 1024px) {
+  .app-shell { grid-template-columns: 200px 1fr; }
+  .overview-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Mobile & Tablets (768px and down) */
+@media (max-width: 768px) {
+  .app-shell { grid-template-columns: 1fr; grid-template-rows: 64px 1fr 70px; }
   .sidebar { display: none; }
-  .overview-grid { grid-template-columns: repeat(2,1fr); }
+  .top-bar { padding: 0 16px; justify-content: space-between; }
+  .nav-links { position: absolute; left: 0; right: 0; top: 64px; background: var(--bg-primary); border-bottom: 1px solid var(--border); padding: 8px 16px; gap: 8px; z-index: 999; }
+  .main-panel { padding: 20px 16px 40px; }
+  
+  .overview-grid { grid-template-columns: 1fr; gap: 12px; }
   .detail-grid { grid-template-columns: 1fr; }
   .regions-grid { grid-template-columns: 1fr; }
-  .type-grid { grid-template-columns: 1fr; }
+  .type-grid { grid-template-columns: 1fr; gap: 12px; }
+  
+  .stat-value { font-size: 22px; }
+  .skill-name { font-size: 24px; }
+  
+  .auth-card { width: calc(100% - 32px); padding: 24px; }
+  .onboard-card { padding: 0 16px; }
+  
+  /* Mobile Bottom Nav (Simulated for Shell) */
+  .mobile-nav-hint { display: block; position: fixed; bottom: 0; left: 0; right: 0; height: 70px; background: rgba(13,17,23,0.9); backdrop-filter: blur(20px); border-top: 1px solid var(--border); z-index: 1000; display: flex; align-items: center; justify-content: space-around; padding: 0 10px; }
+}
+
+/* Small Phones (400px and down) */
+@media (max-width: 400px) {
+  .top-bar { gap: 10px; }
+  .logo { font-size: 12px; }
+  .user-pill span { display: none; }
+  .user-pill { padding: 6px; }
+  .onboard-title { font-size: 22px; }
 }
 
 /* ═══════════════════════════════════════════════════════════════

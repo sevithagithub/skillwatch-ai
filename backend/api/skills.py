@@ -41,6 +41,7 @@ def get_skill_detail(skill_name: str, db: Session = Depends(get_db)):
     # Recompute SDI from actual data
     if demands:
         sdi_result = compute_full_sdi(
+            skill_name=skill.name,
             job_postings=[d.job_postings for d in demands],
             automation_risks=[d.automation_risk for d in demands],
             course_counts=[d.course_count for d in demands],

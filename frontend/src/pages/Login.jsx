@@ -116,7 +116,6 @@ export default function Login({ onLogin }) {
           <div className="auth-field">
             <label className="auth-label">Full Name *</label>
             <input id="auth-name" className="auth-input"
-              placeholder="e.g. Savitha Ruhmini"
               value={name} onChange={e => { setName(e.target.value); setErrors(p => ({ ...p, name: '' })); }}
               autoComplete="name"
               style={{ borderColor: errors.name ? 'rgba(248,113,113,0.5)' : '' }} />

@@ -5,14 +5,14 @@ const ROLES = ['Software Engineer', 'Data Analyst', 'Designer', 'Tester / QA', '
 const QUICK_SKILLS = ['Python', 'Java', 'HTML/CSS', 'SQL', 'Excel', 'C++', 'JavaScript', 'Machine Learning'];
 const QUICK_COURSES = ['Data Structures', 'DBMS', 'Java Programming', 'Manual Testing', 'Excel', 'Computer Networks', 'OS', 'Machine Learning'];
 
-export default function Onboarding({ user, onComplete }) {
-  const [userType, setUserType] = useState(null);
-  const [year, setYear] = useState(null);
-  const [role, setRole] = useState('Software Engineer');
-  const [timeAvail, setTimeAvail] = useState(null);
-  const [skills, setSkills] = useState([]);
+export default function Onboarding({ user, onComplete, onLogout }) {
+  const [userType, setUserType] = useState(user?.user_type || null);
+  const [year, setYear] = useState(user?.year || null);
+  const [role, setRole] = useState(user?.role || 'Software Engineer');
+  const [timeAvail, setTimeAvail] = useState(user?.time_available || null);
+  const [skills, setSkills] = useState(user?.skills || []);
   const [skillInput, setSkillInput] = useState('');
-  const [courses, setCourses] = useState([]);
+  const [courses, setCourses] = useState(user?.courses || []);
   const [courseInput, setCourseInput] = useState('');
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState('');
@@ -31,8 +31,8 @@ export default function Onboarding({ user, onComplete }) {
     setSaving(true);
     setSaveError('');
     try {
-      await updateProfile(prof);
-      onComplete(prof);
+      const res = await updateProfile(prof);
+      onComplete(res.data);
     } catch (err) {
       console.error('Failed to save profile:', err);
       setSaveError('Could not save your profile — check backend is running and try again.');
@@ -126,6 +126,25 @@ export default function Onboarding({ user, onComplete }) {
         <button className="proceed-btn" disabled={!canProceed} onClick={handleProceed}>
           {saving ? 'Saving…' : 'Generate My Dashboard →'}
         </button>
+
+        {onLogout && (
+          <div style={{ marginTop: 20, textAlign: 'center' }}>
+            <span 
+              onClick={onLogout} 
+              style={{ 
+                fontSize: 13, 
+                color: '#64748b', 
+                cursor: 'pointer', 
+                textDecoration: 'underline',
+                transition: 'color 0.2s'
+              }}
+              onMouseEnter={e => e.target.style.color = '#f87171'}
+              onMouseLeave={e => e.target.style.color = '#64748b'}
+            >
+              ← Sign Out / Back to Login
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

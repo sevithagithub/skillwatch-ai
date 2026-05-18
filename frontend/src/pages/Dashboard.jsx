@@ -1,29 +1,11 @@
 import { useState, useEffect } from 'react';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar, Cell, RadarChart, Radar, PolarGrid, PolarAngleAxis } from 'recharts';
-import { getRecommendations, getForecast, getSkillDetail } from '../services/api';
+import { getRecommendations, getForecast, getSkillDetail, getMatches } from '../services/api';
 
 const RC = { Growing: '#00d4a1', Stable: '#60a5fa', 'At Risk': '#f59e0b', Dying: '#f87171' };
 const TT = { background: 'rgba(13,17,23,0.95)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, fontSize: 12, color: '#e2e8f0' };
 const RCOLORS = ['#60a5fa','#00d4a1','#f59e0b','#f87171','#a78bfa','#fb923c'];
-const INTERVIEW_DATA = {
-  Python:{ questions:['What are Python decorators?','Explain GIL in Python','List vs Tuple differences?','What is a generator function?','How does memory management work?'], companies:['Google','Meta','Netflix','Spotify','Amazon'] },
-  SQL:{ questions:['INNER JOIN vs LEFT JOIN?','Explain normalization','What is a database index?','WHERE vs HAVING clause?','What are window functions?'], companies:['Oracle','Amazon','Microsoft','Salesforce','Snowflake'] },
-  JavaScript:{ questions:['Explain JavaScript closures','What is the event loop?','== vs === difference?','What is a Promise?','Explain hoisting in JS'], companies:['Airbnb','Netflix','Uber','LinkedIn','Twitter'] },
-  'Machine Learning':{ questions:['What is overfitting?','Bias-variance tradeoff?','Explain cross-validation','Supervised vs Unsupervised?','What is gradient descent?'], companies:['Google','OpenAI','DeepMind','Tesla','Amazon'] },
-  Java:{ questions:['What is the JVM?','Explain OOP concepts','Abstract class vs Interface?','How does garbage collection work?','Explain multithreading'], companies:['Oracle','IBM','Goldman Sachs','JP Morgan','Infosys'] },
-  'Cloud Computing':{ questions:['IaaS vs PaaS vs SaaS?','Explain microservices','What is serverless computing?','What is containerization?','Explain CI/CD pipelines'], companies:['AWS','Google Cloud','Microsoft Azure','IBM Cloud','Salesforce'] },
-  Excel:{ questions:['VLOOKUP vs INDEX-MATCH?','Explain pivot tables','What is conditional formatting?','How do macros work?','Explain data validation'], companies:['Deloitte','McKinsey','EY','PwC','Accenture'] },
-};
-const ROADMAP_DATA = {
-  Python:{ steps:['Syntax & data types','Control flow & functions','OOP & modules','File handling & exceptions','NumPy, Pandas libraries','Django/Flask web framework','Portfolio projects'], resources:[{n:'Python.org Docs',u:'https://docs.python.org',t:'Free'},{n:'CS50P (Harvard)',u:'https://cs50.harvard.edu/python',t:'Free'},{n:'Automate Boring Stuff',u:'https://automatetheboringstuff.com',t:'Free'},{n:'Python Bootcamp (Udemy)',u:'https://udemy.com',t:'Paid'}] },
-  SQL:{ steps:['SELECT, WHERE, ORDER BY','JOINs: INNER/LEFT/RIGHT','GROUP BY & HAVING','Subqueries & CTEs','Indexes & performance','Stored procedures','Real project with PostgreSQL'], resources:[{n:'SQLZoo',u:'https://sqlzoo.net',t:'Free'},{n:'Mode SQL Tutorial',u:'https://mode.com/sql-tutorial',t:'Free'},{n:'LeetCode SQL',u:'https://leetcode.com',t:'Free'},{n:'PostgreSQL Docs',u:'https://postgresql.org/docs',t:'Free'}] },
-  JavaScript:{ steps:['Variables, functions, scope','DOM manipulation','Async JS: Promises, async/await','ES6+ modern features','React or Vue framework','Node.js backend','Build full-stack projects'], resources:[{n:'javascript.info',u:'https://javascript.info',t:'Free'},{n:'MDN Web Docs',u:'https://developer.mozilla.org',t:'Free'},{n:'The Odin Project',u:'https://theodinproject.com',t:'Free'},{n:'freeCodeCamp',u:'https://freecodecamp.org',t:'Free'}] },
-  'Machine Learning':{ steps:['Math: Linear Algebra & Stats','Python for Data Science','Scikit-learn fundamentals','Supervised learning algorithms','Unsupervised learning','Deep Learning with PyTorch','MLOps & model deployment'], resources:[{n:'fast.ai Practical DL',u:'https://fast.ai',t:'Free'},{n:'Kaggle Learn',u:'https://kaggle.com/learn',t:'Free'},{n:'Andrew Ng ML (Coursera)',u:'https://coursera.org',t:'Free Audit'},{n:'Hands-On ML Book',u:'https://oreilly.com',t:'Paid'}] },
-  'Cloud Computing':{ steps:['Networking basics','Linux fundamentals','Core cloud services (compute/storage)','Docker containers','Kubernetes orchestration','Terraform (IaC)','Get certified (AWS SAA)'], resources:[{n:'AWS Free Tier',u:'https://aws.amazon.com/free',t:'Free'},{n:'KodeKloud',u:'https://kodekloud.com',t:'Paid'},{n:'TechWorld with Nana',u:'https://youtube.com/@TechWorldwithNana',t:'Free'},{n:'A Cloud Guru',u:'https://acloudguru.com',t:'Paid'}] },
-  'Generative AI':{ steps:['Python & ML prerequisites','Transformer architecture','Prompt engineering basics','LLM APIs (OpenAI/Gemini)','RAG systems','Fine-tuning LLMs','Building AI agents'], resources:[{n:'Prompt Engineering Guide',u:'https://promptingguide.ai',t:'Free'},{n:'DeepLearning.AI Courses',u:'https://deeplearning.ai',t:'Free'},{n:'Hugging Face Course',u:'https://huggingface.co/learn',t:'Free'},{n:'LangChain Docs',u:'https://python.langchain.com',t:'Free'}] },
-  DevOps:{ steps:['Linux & shell scripting','Git version control','CI/CD with GitHub Actions','Docker containerization','Kubernetes orchestration','Monitoring: Prometheus/Grafana','Cloud + Terraform IaC'], resources:[{n:'roadmap.sh/devops',u:'https://roadmap.sh/devops',t:'Free'},{n:'TechWorld with Nana (YT)',u:'https://youtube.com',t:'Free'},{n:'KodeKloud',u:'https://kodekloud.com',t:'Paid'},{n:'Linux Foundation Courses',u:'https://training.linuxfoundation.org',t:'Free/Paid'}] },
-};
-const DEFAULT_ROADMAP = { steps:['Learn core fundamentals','Practice with small projects','Study real-world use cases','Build a portfolio project','Contribute to open source','Get certified if available','Apply & iterate based on feedback'], resources:[{n:'roadmap.sh',u:'https://roadmap.sh',t:'Free'},{n:'freeCodeCamp',u:'https://freecodecamp.org',t:'Free'},{n:'Coursera',u:'https://coursera.org',t:'Free Audit'},{n:'YouTube Tutorials',u:'https://youtube.com',t:'Free'}] };
+import { INTERVIEW_DATA, ROADMAP_DATA, DEFAULT_ROADMAP } from '../data/skillResources';
 
 function SDIRing({ sdi = 0, risk = 'Stable', size = 64 }) {
   const color = RC[risk] || '#60a5fa';
@@ -106,30 +88,42 @@ function MultiSkillForecast({ skillNames }) {
 /* ── INTERVIEW PREP ────────────────────────────────────── */
 function InterviewPrepPanel({ userSkillNames }) {
   const [sel, setSel] = useState(userSkillNames[0] || '');
+  const [showAnswer, setShowAnswer] = useState({});
   const d = INTERVIEW_DATA[sel] || {
-    questions: ['Research common questions for '+sel, 'Review core concepts & fundamentals', 'Practice on LeetCode / HackerRank', 'Prepare STAR behavioral answers', 'Study system design basics'],
+    questions: ['Research common advanced questions for '+sel, 'Review core architecture & concepts', 'Practice System Design on LeetCode / HackerRank', 'Prepare STAR behavioral answers', 'Deep dive into internals of ' + sel],
     companies: ['TCS','Infosys','Wipro','Accenture','Cognizant'],
   };
   return (
     <div className="panel" style={{ borderColor:'rgba(0,212,161,0.2)', marginBottom:18 }}>
       <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:14 }}>
-        <div className="panel-title" style={{ marginBottom:0, color:'#00d4a1' }}>🎯 Interview Prep — Placement Ready</div>
-        <select value={sel} onChange={e => setSel(e.target.value)} style={{ background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.12)', borderRadius:8, padding:'5px 10px', fontSize:12, color:'#e2e8f0', outline:'none' }}>
+        <div className="panel-title" style={{ marginBottom:0, color:'#00d4a1' }}>🎯 Advanced Interview Prep — Placement Ready</div>
+        <select value={sel} onChange={e => { setSel(e.target.value); setShowAnswer({}); }} style={{ background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.12)', borderRadius:8, padding:'5px 10px', fontSize:12, color:'#e2e8f0', outline:'none' }}>
           {userSkillNames.map(s => <option key={s} value={s} style={{ background:'#1a2030', color:'#f1f5f9' }}>{s}</option>)}
         </select>
       </div>
-      <div className="detail-grid">
+      <div className="detail-grid" style={{ gridTemplateColumns: '2fr 1fr' }}>
         <div>
-          <div style={{ fontSize:10, color:'#475569', fontFamily:"'Space Mono',monospace", letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:10 }}>Top Interview Questions</div>
+          <div style={{ fontSize:10, color:'#475569', fontFamily:"'Space Mono',monospace", letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:10 }}>In-Depth Interview Questions</div>
           {d.questions.map((q,i) => (
-            <div key={i} style={{ display:'flex', gap:10, padding:'9px 0', borderBottom:'1px solid rgba(255,255,255,0.05)' }}>
-              <div style={{ width:22, height:22, borderRadius:'50%', background:'rgba(0,212,161,0.12)', color:'#00d4a1', fontSize:10, fontWeight:700, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>{i+1}</div>
-              <div style={{ fontSize:12, color:'#cbd5e1', lineHeight:1.5 }}>{q}</div>
+            <div key={i} style={{ padding:'12px', borderBottom:'1px solid rgba(255,255,255,0.05)', background: 'rgba(0,0,0,0.2)', borderRadius: '8px', marginBottom: '8px' }}>
+              <div style={{ display:'flex', gap:10, alignItems: 'flex-start' }}>
+                <div style={{ width:22, height:22, borderRadius:'50%', background:'rgba(0,212,161,0.12)', color:'#00d4a1', fontSize:10, fontWeight:700, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>{i+1}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize:13, color:'#e2e8f0', lineHeight:1.5, fontWeight: 500, marginBottom: 8 }}>{q}</div>
+                  {showAnswer[i] ? (
+                    <div style={{ fontSize: 12, color: '#94a3b8', lineHeight: 1.6, padding: '10px', background: 'rgba(255,255,255,0.03)', borderRadius: '6px', borderLeft: '2px solid #00d4a1' }}>
+                      <em>Tip: Focus your answer on underlying mechanisms, trade-offs, and practical scenarios where you have applied this concept. Avoid surface-level definitions.</em>
+                    </div>
+                  ) : (
+                    <button onClick={() => setShowAnswer(p => ({...p, [i]: true}))} style={{ background: 'transparent', border: '1px solid rgba(0,212,161,0.3)', color: '#00d4a1', padding: '4px 10px', borderRadius: '4px', fontSize: 10, cursor: 'pointer' }}>Show Hint</button>
+                  )}
+                </div>
+              </div>
             </div>
           ))}
         </div>
         <div>
-          <div style={{ fontSize:10, color:'#475569', fontFamily:"'Space Mono',monospace", letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:10 }}>Companies Hiring for {sel}</div>
+          <div style={{ fontSize:10, color:'#475569', fontFamily:"'Space Mono',monospace", letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:10 }}>Top Companies Hiring</div>
           {d.companies.map((c,i) => (
             <div key={i} style={{ display:'flex', alignItems:'center', gap:10, padding:'9px 12px', marginBottom:6, borderRadius:8, background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.06)' }}>
               <div style={{ width:32, height:32, borderRadius:8, background:`hsl(${i*60},35%,20%)`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:13, fontWeight:700, color:`hsl(${i*60},70%,70%)` }}>{c[0]}</div>
@@ -144,15 +138,27 @@ function InterviewPrepPanel({ userSkillNames }) {
 }
 
 /* ── LEARN NEW SKILL ───────────────────────────────────── */
-function LearnSkillPanel() {
-  const [input, setInput] = useState('');
-  const [sel, setSel] = useState(null);
+function LearnSkillPanel({ year = null, prefillSkill = null }) {
+  const [input, setInput] = useState(prefillSkill || '');
+  const [sel, setSel] = useState(prefillSkill || null);
   const POPULAR = ['Python','JavaScript','Machine Learning','SQL','Cloud Computing','Generative AI','DevOps'];
   const go = () => { const s = input.trim(); if (!s) return; setSel(Object.keys(ROADMAP_DATA).find(k => k.toLowerCase()===s.toLowerCase()) || s); };
   const rm = sel ? (ROADMAP_DATA[sel] || DEFAULT_ROADMAP) : null;
+  
+  let displaySteps = rm ? rm.steps : [];
+  let displayResources = rm ? rm.resources : [];
+  
+  if (year && rm) {
+    const yearSteps = displaySteps.filter(s => s.includes(`Year ${year}`));
+    if (yearSteps.length > 0) displaySteps = yearSteps;
+    
+    const yearRes = displayResources.filter(r => r.year === year || (r.year && r.year <= year));
+    if (yearRes.length > 0) displayResources = yearRes;
+  }
+
   return (
     <div className="panel" style={{ borderColor:'rgba(96,165,250,0.2)', marginBottom:18 }}>
-      <div className="panel-title" style={{ color:'#60a5fa' }}>🚀 Want to Learn a New Skill?</div>
+      <div className="panel-title" style={{ color:'#60a5fa' }}>🚀 {year ? `Year ${year} Learning Path` : 'Want to Learn a New Skill?'}</div>
       <div style={{ display:'flex', gap:8, marginBottom:12 }}>
         <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key==='Enter' && go()} placeholder="Type a skill (e.g. Python, React, AWS)..." style={{ flex:1, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.1)', borderRadius:10, padding:'10px 14px', fontSize:13, color:'#f1f5f9', outline:'none', fontFamily:'inherit' }}/>
         <button onClick={go} style={{ background:'#60a5fa', color:'#080b12', border:'none', borderRadius:10, padding:'10px 20px', fontSize:13, fontWeight:600, cursor:'pointer' }}>Show Roadmap</button>
@@ -164,11 +170,11 @@ function LearnSkillPanel() {
         <div className="detail-grid">
           <div>
             <div style={{ fontSize:10, color:'#475569', fontFamily:"'Space Mono',monospace", letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:10 }}>Learning Roadmap — {sel}</div>
-            {rm.steps.map((step,i) => <div key={i} className="roadmap-step"><div className="roadmap-num">{i+1}</div><div style={{ fontSize:13, color:'#cbd5e1', lineHeight:1.5, paddingTop:2 }}>{step}</div></div>)}
+            {displaySteps.map((step,i) => <div key={i} className="roadmap-step"><div className="roadmap-num">{i+1}</div><div style={{ fontSize:13, color:'#cbd5e1', lineHeight:1.5, paddingTop:2 }}>{step}</div></div>)}
           </div>
           <div>
-            <div style={{ fontSize:10, color:'#475569', fontFamily:"'Space Mono',monospace", letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:10 }}>Free & Paid Resources</div>
-            {rm.resources.map((r,i) => (
+            <div style={{ fontSize:10, color:'#475569', fontFamily:"'Space Mono',monospace", letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:10 }}>{year ? `Year ${year} Resources` : 'Free & Paid Resources'}</div>
+            {displayResources.map((r,i) => (
               <a key={i} href={r.u} target="_blank" rel="noreferrer" style={{ display:'flex', alignItems:'center', gap:12, padding:'10px 14px', marginBottom:8, borderRadius:10, background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.07)', textDecoration:'none', transition:'all 0.15s' }}>
                 <div style={{ fontSize:16 }}>{r.t==='Free'?'🆓':'💳'}</div>
                 <div style={{ flex:1, fontSize:13, color:'#f1f5f9', fontWeight:500 }}>{r.n}</div>
@@ -245,8 +251,92 @@ function StudentDashboard({ user, profile, skills, onSelectSkill, recs, forecast
       </div>
 
       {year === 4 && userSkillNames.length > 0 && <InterviewPrepPanel userSkillNames={userSkillNames}/>}
-      <LearnSkillPanel/>
+      <LearnSkillPanel year={year} prefillSkill={userSkillNames[0]} />
       {userSkillNames.length > 0 && <MultiSkillForecast skillNames={userSkillNames}/>}
+    </div>
+  );
+}
+
+/* ── JOB MATCHES PANEL ─────────────────────────────────── */
+function JobMatchesPanel() {
+  const [matches, setMatches] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getMatches()
+      .then(r => {
+        setMatches(r.data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) return <div className="panel" style={{ color: '#64748b', fontSize: 13, textAlign: 'center', padding: '20px' }}>Analyzing market opportunities...</div>;
+
+  return (
+    <div className="panel" style={{ borderColor: 'rgba(56, 189, 248, 0.2)' }}>
+      <div className="panel-title" style={{ color: '#38bdf8' }}>🎯 Job Opportunities (O*NET Matches)</div>
+      <div className="matches-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
+        {matches.length === 0 ? (
+          <div style={{ fontSize: 13, color: '#475569' }}>No direct matches found. Try adding more skills to your profile.</div>
+        ) : (
+          matches.map(m => (
+            <div key={m.soc} style={{ 
+              background: 'rgba(255,255,255,0.03)', 
+              borderRadius: '12px', 
+              padding: '16px', 
+              border: '1px solid rgba(255,255,255,0.05)'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                <div>
+                  <div style={{ margin: 0, fontSize: '14px', fontWeight: 600, color: '#f1f5f9' }}>{m.job_title}</div>
+                  <div style={{ fontSize: '11px', color: '#64748b', marginTop: 2 }}>SOC: {m.soc}</div>
+                </div>
+                <div style={{ 
+                  background: m.automation_risk > 0.7 ? 'rgba(248, 113, 113, 0.1)' : 'rgba(34, 197, 94, 0.1)',
+                  color: m.automation_risk > 0.7 ? '#f87171' : '#4ade80',
+                  padding: '2px 8px',
+                  borderRadius: '12px',
+                  fontSize: '10px',
+                  fontWeight: 600
+                }}>
+                  {m.automation_risk > 0.7 ? 'High Risk' : 'Low Risk'}
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', marginBottom: '4px' }}>
+                  <span style={{ color: '#94a3b8' }}>Fit Score</span>
+                  <span style={{ color: '#38bdf8', fontWeight: 600 }}>{Math.round(m.fit_score * 100)}%</span>
+                </div>
+                <div style={{ width: '100%', height: '4px', background: 'rgba(255,255,255,0.05)', borderRadius: '2px' }}>
+                  <div style={{ 
+                    width: `${m.fit_score * 100}%`, 
+                    height: '100%', 
+                    background: 'linear-gradient(90deg, #38bdf8, #818cf8)', 
+                    borderRadius: '2px' 
+                  }} />
+                </div>
+              </div>
+
+              <div>
+                <div style={{ fontSize: '10px', color: '#94a3b8', marginBottom: '6px' }}>Matched Skills</div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                  {m.matched_skills.map(s => (
+                    <span key={s} style={{ 
+                      padding: '2px 6px', 
+                      background: 'rgba(56, 189, 248, 0.1)', 
+                      color: '#38bdf8', 
+                      borderRadius: '4px', 
+                      fontSize: '9px' 
+                    }}>{s}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }
@@ -329,6 +419,8 @@ function ProfessionalDashboard({ user, profile, skills, onSelectSkill, recs, for
           </AreaChart>
         </ResponsiveContainer>
       </div>
+
+      <JobMatchesPanel />
     </div>
   );
 }

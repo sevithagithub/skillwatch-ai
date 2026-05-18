@@ -1,4 +1,18 @@
 skill,resource_type,title,platform,url,rating,cost_type,duration_hrs,level
+Excel,course,Microsoft Excel — Excel from Beginner to Advanced,Udemy,https://www.udemy.com/course/microsoft-excel-2013-from-beginner-to-advanced-and-beyond,4.7,paid,18,Beginner
+Excel,course,Excel Skills for Business Specialization,Coursera,https://www.coursera.org/specializations/excel,4.8,free_audit,48,Beginner
+Excel,course,Excel for Data Analysis,freeCodeCamp,https://www.youtube.com/watch?v=PSNXoAs2FtQ,4.5,free,5,Beginner
+Excel,book,Excel 2021 Bible,Wiley,https://www.wiley.com/en-us/Excel+2021+Bible-p-9781119829943,4.6,paid,0,Beginner
+Excel,book,Data Analysis Using SQL and Excel,O'Reilly,https://www.oreilly.com/library/view/data-analysis-using/9780470489116,4.5,paid,0,Intermediate
+Excel,practice,Excel Practice Online,ExcelPracticeOnline,https://excel-practice-online.com,4.6,free,0,All
+Excel,practice,Chandoo.org Excel Training,Chandoo,https://chandoo.org/wp/excel-tutorials,4.7,free,0,All
+Tableau,course,Tableau 2024 A-Z: Hands-On Tableau Training,Udemy,https://www.udemy.com/course/tableau10,4.6,paid,10,Beginner
+Tableau,course,Data Visualization with Tableau Specialization,Coursera,https://www.coursera.org/specializations/data-visualization,4.7,free_audit,24,Beginner
+Tableau,course,Tableau Public Free Training Videos,Tableau,https://www.tableau.com/learn/training,4.8,free,8,Beginner
+Tableau,book,Practical Tableau,O'Reilly,https://www.oreilly.com/library/view/practical-tableau/9781491977309,4.5,paid,0,Intermediate
+Tableau,book,Tableau Your Data! 2nd Ed,Wiley,https://www.wiley.com/en-us/Tableau+Your+Data%21-p-9781119272922,4.4,paid,0,Beginner
+Tableau,practice,Tableau Public Gallery,Tableau,https://public.tableau.com/app/discover,4.9,free,0,All
+Tableau,practice,Kaggle Data Visualization with Tableau,Kaggle,https://www.kaggle.com/learn/data-visualization,4.7,free,4,Beginner
 Python,course,Python for Everybody Specialization,Coursera,https://coursera.org/specializations/python,4.8,free_audit,40,Beginner
 Python,course,100 Days of Code: Python Bootcamp,Udemy,https://udemy.com/course/100-days-of-code,4.7,paid,60,Beginner
 Python,course,Python Tutorial for Beginners,freeCodeCamp,https://youtube.com/@freecodecamp,4.6,free,4,Beginner
@@ -44,3 +58,17 @@ Generative AI,course,Prompt Engineering for Developers,DeepLearning.AI,https://d
 MLOps,course,MLOps Specialization,Coursera,https://coursera.org/specializations/machine-learning-engineering-for-production-mlops,4.7,free_audit,40,Intermediate
 Data Engineering,course,Data Engineering Zoomcamp,DataTalks.Club,https://github.com/DataTalksClub/data-engineering-zoomcamp,4.8,free,80,Intermediate
 Data Engineering,course,Apache Spark with Scala,Udemy,https://udemy.com,4.6,paid,15,Intermediate
+Data Entry,course,Data Entry Fundamentals,Udemy,https://www.udemy.com/course/data-entry/,4.5,paid,3,Beginner
+Data Entry,practice,Typing Test Practice,TypingTest,https://www.typingtest.com/,4.8,free,0,All
+Manual Testing,course,Manual Software Testing: Complete Course,Udemy,https://www.udemy.com/course/manual-software-testing/,4.6,paid,12,Beginner
+Manual Testing,book,Software Testing Foundations,Rocky Nook,https://rockynook.com,4.5,paid,0,Beginner
+Photoshop,course,Adobe Photoshop CC: Complete Guide,Udemy,https://www.udemy.com/course/photoshop-cc/,4.8,paid,15,Beginner
+Photoshop,practice,Adobe Creative Cloud Tutorials,Adobe,https://helpx.adobe.com/photoshop/tutorials.html,4.7,free,0,All
+LLM Fine-tuning,course,Finetuning Large Language Models,DeepLearning.AI,https://www.deeplearning.ai/short-courses/finetuning-large-language-models/,4.9,free,1,Intermediate
+LLM Fine-tuning,practice,Hugging Face AutoTrain,HuggingFace,https://huggingface.co/autotrain,4.8,free,0,Advanced
+React,course,React - The Complete Guide,Udemy,https://www.udemy.com/course/react-the-complete-guide-incl-redux/,4.8,paid,40,Beginner
+React,practice,React Documentation and Tutorials,ReactJS,https://react.dev/learn,4.9,free,0,All
+Java,course,Java Programming Masterclass,Udemy,https://www.udemy.com/course/java-the-complete-java-developer-course/,4.7,paid,80,Beginner
+Java,practice,LeetCode Java Problems,LeetCode,https://leetcode.com,4.8,freemium,0,All
+tableu,course,Tableau 2024 A-Z: Hands-On Tableau Training,Udemy,https://www.udemy.com/course/tableau10,4.6,paid,10,Beginner
+tableu,practice,Tableau Public Gallery,Tableau,https://public.tableau.com/app/discover,4.9,free,0,All

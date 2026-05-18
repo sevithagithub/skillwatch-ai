@@ -86,11 +86,17 @@ export default function App() {
     }
   };
 
-  const handleOnboard = (prof) => {
-    localStorage.setItem('sw_profile', JSON.stringify(prof));
-    setProfile(prof);
-    // Update user state with new profile info
-    const updatedUser = { ...user, ...prof };
+  const handleOnboard = (updatedUser) => {
+    const p = {
+      user_type: updatedUser.user_type,
+      year: updatedUser.year,
+      role: updatedUser.role,
+      time_available: updatedUser.time_available,
+      skills: updatedUser.skills || [],
+      courses: updatedUser.courses || [],
+    };
+    localStorage.setItem('sw_profile', JSON.stringify(p));
+    setProfile(p);
     setUser(updatedUser);
     localStorage.setItem('sw_user', JSON.stringify(updatedUser));
   };
@@ -111,7 +117,7 @@ export default function App() {
   };
 
   if (!user) return <Login onLogin={handleLogin} />;
-  if (!profile || !profile.user_type) return <Onboarding user={user} onComplete={handleOnboard} />;
+  if (!profile || !profile.user_type) return <Onboarding user={user} onComplete={handleOnboard} onLogout={handleLogout} />;
 
   const navItems = [
     { id: 'dashboard', label: 'Dashboard' },

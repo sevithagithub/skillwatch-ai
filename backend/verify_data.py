@@ -62,7 +62,7 @@ for item in rec.get("recommendations", []):
 # 4. Data Entry decline verification
 print("\n[4] Data Entry Decline (BLS SOC 43-9021)")
 print("-" * 55)
-data = fetch_json(f"{BASE}/api/forecast/Data Entry")
+data = fetch_json(f"{BASE}/api/forecast/Data%20Entry")
 for f in data.get("demand_forecast", []):
     t = "PROJECTED" if f["is_projected"] else "actual"
     print(f"    {f['year']:>5}  {f['value']:>8,} postings  {t}")
