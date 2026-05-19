@@ -17,10 +17,16 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# CORS — allow frontend dev server
+# CORS — allow frontend dev server and deployed Netlify app
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000", "*"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "https://dasik-f2daa8.netlify.app",
+        "https://main--dasik-f2daa8.netlify.app",
+        "https://skillwatch-ai.onrender.com",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

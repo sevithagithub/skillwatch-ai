@@ -154,14 +154,41 @@ def seed_regions(db):
 
 
 def seed_all():
-    """Create tables, seed real-world data, and train ML models."""
+    """Create tables, seed real-world data, and train ML models.
+
+    SMART SEEDING: Only drops and re-seeds if skills data is missing.
+    This preserves user accounts across server restarts and redeploys.
+    """
     print("SkillWatch AI — Database Seeder (Real Data Pipeline)")
     print("=" * 50)
 
-    # Create all tables
+    # Always create tables if they don't exist (safe — won't drop existing)
+    Base.metadata.create_all(bind=engine)
+    print("[OK] Tables ready\n")
+
+    # Check if skills data already exists — skip re-seeding if so
+    db_check = SessionLocal()
+    try:
+        skill_count = db_check.query(Skill).count()
+        resource_count = db_check.query(Resource).count()
+    finally:
+        db_check.close()
+
+    if skill_count > 0 and resource_count > 0 and not os.getenv("FORCE_RESEED"):
+        print(f"[SKIP] Already seeded ({skill_count} skills, {resource_count} resources).")
+        print("[SKIP] User accounts preserved. Skipping re-seed.")
+        print("[SKIP] Set FORCE_RESEED=1 env var to force a fresh seed.")
+        models_path = os.path.join(BASE_DIR, "..", "models", "sdi_models.pkl")
+        if not os.path.exists(models_path):
+            print("[INFO] Training ML models (pkl missing)...")
+            train_models()
+        return
+
+    # Database is empty or FORCE_RESEED=1 — do a full fresh seed
+    print("[INFO] Seeding fresh data...")
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
-    print("[OK] Tables created\n")
+    print("[OK] Tables recreated\n")
 
     db = SessionLocal()
     try:
