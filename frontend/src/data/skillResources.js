@@ -329,6 +329,25 @@ export const ROADMAP_DATA = {
       { n: 'CppCon YouTube', u: 'https://www.youtube.com/user/CppCon', t: 'Free', year: 4 }
     ]
   },
+  'C': {
+    steps: [
+      'Year 1: Syntax, Data Types, Control Flow, and Functions',
+      'Year 1: Arrays, Strings, and basic Pointers',
+      'Year 2: Advanced Pointers, Memory Allocation (malloc, free), and Structs',
+      'Year 2: File I/O operations and Command Line Arguments',
+      'Year 3: Data Structures in C (Linked Lists, Stacks, Queues, Trees)',
+      'Year 3: Bitwise operations and macro processors',
+      'Year 4: Operating System fundamentals (processes, threads, IPC)',
+      'Year 4: System programming, embedded C, and performance optimization'
+    ],
+    resources: [
+      { n: 'Learn-C.org', u: 'https://www.learn-c.org/', t: 'Free', year: 1 },
+      { n: 'CS50 (Harvard)', u: 'https://cs50.harvard.edu/x/', t: 'Free', year: 1 },
+      { n: 'C Programming Absolute Beginner', u: 'https://www.amazon.com/Programming-Absolute-Beginners-Guide-3rd/dp/0789751984', t: 'Paid', year: 2 },
+      { n: 'GeeksforGeeks C', u: 'https://www.geeksforgeeks.org/c-programming-language/', t: 'Free', year: 3 },
+      { n: 'Advanced C Programming', u: 'https://www.udemy.com/course/advanced-c-programming/', t: 'Paid', year: 4 }
+    ]
+  },
   'Node.js': {
     steps: [
       'Year 1: JavaScript fundamentals and asynchronous programming',
