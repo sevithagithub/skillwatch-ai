@@ -145,7 +145,6 @@ export default function App() {
     { id: 'resources', label: 'Resources' },
     { id: 'regions', label: 'Region Risk' },
     { id: 'matcher', label: 'Job Matcher' },
-    { id: 'admin', label: '🔐 Admin' },
   ];
 
   const userSkillNames = profile.user_type === 'university'

@@ -106,17 +106,10 @@ function InterviewPrepPanel({ userSkillNames }) {
           <div style={{ fontSize:10, color:'#475569', fontFamily:"'Space Mono',monospace", letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:10 }}>In-Depth Interview Questions</div>
           {d.questions.map((q,i) => (
             <div key={i} style={{ padding:'12px', borderBottom:'1px solid rgba(255,255,255,0.05)', background: 'rgba(0,0,0,0.2)', borderRadius: '8px', marginBottom: '8px' }}>
-              <div style={{ display:'flex', gap:10, alignItems: 'flex-start' }}>
+              <div style={{ display:'flex', gap:10, alignItems: 'center' }}>
                 <div style={{ width:22, height:22, borderRadius:'50%', background:'rgba(0,212,161,0.12)', color:'#00d4a1', fontSize:10, fontWeight:700, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>{i+1}</div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize:13, color:'#e2e8f0', lineHeight:1.5, fontWeight: 500, marginBottom: 8 }}>{q}</div>
-                  {showAnswer[i] ? (
-                    <div style={{ fontSize: 12, color: '#94a3b8', lineHeight: 1.6, padding: '10px', background: 'rgba(255,255,255,0.03)', borderRadius: '6px', borderLeft: '2px solid #00d4a1' }}>
-                      <em>Tip: Focus your answer on underlying mechanisms, trade-offs, and practical scenarios where you have applied this concept. Avoid surface-level definitions.</em>
-                    </div>
-                  ) : (
-                    <button onClick={() => setShowAnswer(p => ({...p, [i]: true}))} style={{ background: 'transparent', border: '1px solid rgba(0,212,161,0.3)', color: '#00d4a1', padding: '4px 10px', borderRadius: '4px', fontSize: 10, cursor: 'pointer' }}>Show Hint</button>
-                  )}
+                  <div style={{ fontSize:13, color:'#e2e8f0', lineHeight:1.5, fontWeight: 500 }}>{q}</div>
                 </div>
               </div>
             </div>
