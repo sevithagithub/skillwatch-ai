@@ -154,7 +154,7 @@ function LearnSkillPanel({ year = null, prefillSkill = null }) {
       <div className="panel-title" style={{ color:'#60a5fa' }}>🚀 {year ? `Year ${year} Learning Path` : 'Want to Learn a New Skill?'}</div>
       <div style={{ display:'flex', gap:8, marginBottom:12 }}>
         <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key==='Enter' && go()} placeholder="Type a skill (e.g. Python, React, AWS)..." style={{ flex:1, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.1)', borderRadius:10, padding:'10px 14px', fontSize:13, color:'#f1f5f9', outline:'none', fontFamily:'inherit' }}/>
-        <button onClick={go} style={{ background:'#60a5fa', color:'#080b12', border:'none', borderRadius:10, padding:'10px 20px', fontSize:13, fontWeight:600, cursor:'pointer' }}>Show Roadmap</button>
+        
       </div>
       <div style={{ display:'flex', gap:6, flexWrap:'wrap', marginBottom:16 }}>
         {POPULAR.map(s => <button key={s} onClick={() => { setInput(s); setSel(s); }} style={{ padding:'4px 12px', borderRadius:20, fontSize:11, cursor:'pointer', border:'1px solid rgba(255,255,255,0.1)', background:'rgba(255,255,255,0.03)', color:'#64748b', transition:'all 0.15s' }}>{s}</button>)}
